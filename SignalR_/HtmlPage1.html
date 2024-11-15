@@ -49,18 +49,40 @@
             prox.on("newMessage", function (n, m) {
                 $("ul").append("<li>"+ n + ":" + m +"</li>")
             })
+
+            prox.on("newMember", function (n, g) {
+                $("ul").append("<li>" + n + " joined " + g + "</li>")
+
+            })
+
+            prox.on("groupmsg", function (n, g, m) {
+                $("ul").append("<li>" + n + "("+ g + ")" + m + "</li>")
+
+            })
         })
        
         //calling server method --> SendMessage
         function send() {
             prox.invoke("sendMessage", name, $("#txt").val())
         }
+
+        function join() {
+            prox.invoke("joinGroup", $("#gtxt").val(), name);
+        }
+
+        function sendTogroup() {
+            prox.invoke("sendToGroup", $("#gtxt").val(), name, $("#txt").val());
+        }
+
     </script>
 </head>
 <body>
     <input type="text" id="txt" />
     <input type="button" value="send" onclick="send()" />
-
+    <br />
+    <input type="text" id="gtxt" />
+    <input type="button" value="join" onclick="join()" />
+    <input type="button" value="Send To goup" onclick="sendTogroup()" />
     <ul>
         <li>message</li>
     </ul>
